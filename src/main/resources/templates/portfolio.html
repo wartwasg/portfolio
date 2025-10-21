@@ -36,6 +36,10 @@
             -webkit-text-size-adjust: 100%;
         }
 
+        body.menu-open {
+            overflow: hidden;
+        }
+
         nav {
             position: fixed;
             top: 0;
@@ -82,7 +86,7 @@
             width: 25px;
             height: 3px;
             background: var(--text);
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 2px;
         }
 
@@ -116,6 +120,25 @@
 
         .nav-links a:hover {
             color: var(--primary);
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         section {
@@ -923,35 +946,70 @@
 
             .nav-links {
                 position: fixed;
-                top: 100%;
-                left: 0;
-                width: 100%;
+                top: 0;
+                right: 0;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
                 background: rgba(255, 255, 255, 0.98);
                 backdrop-filter: blur(20px);
                 flex-direction: column;
                 gap: 0;
-                padding: 1rem 5%;
-                transform: translateY(-100%);
-                transition: transform 0.3s ease;
-                border-top: 1px solid var(--border);
-                max-height: calc(100vh - 100px);
+                padding: 5rem 2rem 2rem;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                border-left: 1px solid var(--border);
+                max-height: 100vh;
                 overflow-y: auto;
+                z-index: 1001;
             }
 
             .nav-links.active {
-                transform: translateY(0);
+                transform: translateX(0);
             }
 
             .nav-links li {
-                margin: 0.75rem 0;
+                margin: 1rem 0;
                 border-bottom: 1px solid var(--border);
+                opacity: 0;
+                transform: translateX(30px) scale(0.95);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
+            .nav-links.active li {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+
+            .nav-links li:nth-child(1) { transition-delay: 0.05s; }
+            .nav-links li:nth-child(2) { transition-delay: 0.1s; }
+            .nav-links li:nth-child(3) { transition-delay: 0.15s; }
+            .nav-links li:nth-child(4) { transition-delay: 0.2s; }
+            .nav-links li:nth-child(5) { transition-delay: 0.25s; }
+            .nav-links li:nth-child(6) { transition-delay: 0.3s; }
+            .nav-links li:nth-child(7) { transition-delay: 0.35s; }
+            .nav-links li:nth-child(8) { transition-delay: 0.4s; }
+
+            .nav-links.closing li {
+                opacity: 0;
+                transform: translateX(30px) scale(0.95);
+                transition-delay: 0s;
+            }
+
+            .nav-links.closing li:nth-child(8) { transition-delay: 0.05s; }
+            .nav-links.closing li:nth-child(7) { transition-delay: 0.1s; }
+            .nav-links.closing li:nth-child(6) { transition-delay: 0.15s; }
+            .nav-links.closing li:nth-child(5) { transition-delay: 0.2s; }
+            .nav-links.closing li:nth-child(4) { transition-delay: 0.25s; }
+            .nav-links.closing li:nth-child(3) { transition-delay: 0.3s; }
+            .nav-links.closing li:nth-child(2) { transition-delay: 0.35s; }
+            .nav-links.closing li:nth-child(1) { transition-delay: 0.4s; }
+
             .nav-links a {
-                font-size: 1.1rem;
-                padding: 0.75rem 0;
+                font-size: 1.2rem;
+                padding: 1rem 0;
                 display: block;
-                text-align: center;
+                text-align: left;
             }
 
             .hero {
@@ -1105,7 +1163,12 @@
             }
 
             .nav-links {
-                padding: 1rem 3%;
+                width: 100%;
+                padding: 5rem 1.5rem 2rem;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
             }
 
             .btn {
@@ -1133,6 +1196,10 @@
             section {
                 min-height: auto;
                 padding: 4rem 3% 2rem;
+            }
+
+            .nav-links {
+                padding: 4rem 1.5rem 1.5rem;
             }
         }
     </style>
@@ -1163,6 +1230,8 @@
         </div>
     </div>
 </nav>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
 <section id="home" class="hero">
     <div class="hero-content">
@@ -1615,18 +1684,47 @@
     // Mobile nav toggle
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
 
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
+    function openMenu() {
+        navToggle.classList.add('active');
+        navLinks.classList.add('active');
+        mobileMenuOverlay.classList.add('active');
+        document.body.classList.add('menu-open');
+    }
+
+    function closeMenu() {
+        navToggle.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        navLinks.classList.add('closing');
+        setTimeout(() => {
+            navLinks.classList.remove('active', 'closing');
+        }, 450); // Slightly longer than the animation duration
+    }
+
+    navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (navLinks.classList.contains('active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     });
+
+    // Close mobile menu on overlay click
+    mobileMenuOverlay.addEventListener('click', closeMenu);
 
     // Close mobile menu on link click
     document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-        });
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            closeMenu();
+        }
     });
 
     // Typing animation
@@ -1727,13 +1825,6 @@
             }
         });
     });
-
-    // Prevent body scroll when mobile menu is open
-    navLinks.addEventListener('scroll', (e) => {
-        if (window.innerWidth <= 768 && navLinks.classList.contains('active')) {
-            e.preventDefault();
-        }
-    }, { passive: false });
 </script>
 </body>
 </html>
