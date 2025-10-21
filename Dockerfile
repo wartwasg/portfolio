@@ -1,14 +1,13 @@
-# Use official OpenJDK 21 slim image
-FROM openjdk:21-jdk-slim
-
-# Set working directory
+# Stage 1: Build the JAR
+FROM maven:3.9.3-eclipse-temurin-21 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy the JAR built by Maven into container
-COPY target/portfolio-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose Spring Boot default port
+# Stage 2: Run the app
+FROM openjdk:21-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/portfolio-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Run the JAR
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
