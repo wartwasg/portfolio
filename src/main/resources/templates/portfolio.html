@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Elias - Full Stack Software Engineer</title>
+    <title>Daniel Elias | Systems Engineer</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logo.png}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,42 +15,60 @@
         }
 
         :root {
+            /* Premium Light Mode (Silver/Slate) */
             --primary: #0066FF;
+            --primary-glow: rgba(0, 102, 255, 0.1);
             --secondary: #0052CC;
             --accent: #2684FF;
-            --dark: #172B4D;
-            --text: #42526E;
-            --text-light: #6B778C;
-            --light-gray: #F4F5F7;
-            --border: #DFE1E6;
-            --white: #FFFFFF;
-            --success: #00875A;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-deep: #F8FAFC; /* Soft Slate 50 */
+            --bg-surface: #FFFFFF;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --text: #475569; /* Slate 600 */
+            --text-bright: #0F172A; /* Slate 900 */
+            --text-muted: #64748B;
+            --border: rgba(0, 0, 0, 0.06);
+            --success: #10B981;
+            --gradient: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+            
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            background: var(--white);
+            font-family: var(--font-sans);
+            background: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 102, 255, 0.03), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 102, 255, 0.04), transparent 25%);
+            background-attachment: fixed;
             color: var(--text);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: 100%;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        body.menu-open {
-            overflow: hidden;
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+                        0 20px 40px rgba(0, 0, 0, 0.03);
+            border-radius: 20px;
         }
 
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(248, 250, 252, 0.85);
             backdrop-filter: blur(20px);
             padding: 1rem 5%;
             z-index: 1000;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             border-bottom: 1px solid var(--border);
         }
 
@@ -60,17 +80,33 @@
             align-items: center;
         }
 
-        .logo {
+        .nav-logo {
+            font-family: var(--font-heading);
             font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--dark);
-            letter-spacing: -0.5px;
+            font-weight: 800;
+            color: var(--text-bright);
+            text-decoration: none;
+            letter-spacing: -1px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
-        .logo i {
+        .nav-logo img {
+            height: 32px;
+            width: auto;
+            border-radius: 6px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
             color: var(--primary);
         }
 
@@ -108,20 +144,6 @@
             list-style: none;
         }
 
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-            position: relative;
-            font-size: 0.95rem;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -142,18 +164,19 @@
         }
 
         section {
-            min-height: 100vh;
-            padding: 3rem 5% 1rem;
-            max-width: 1400px;
+            min-height: auto;
+            padding: 6rem 5% 4rem; /* Massively increased vertical breathing room */
+            max-width: 1750px;
             margin: 0 auto;
         }
 
         .hero {
+            min-height: 75vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 5rem;
-            padding-top: 3rem;
+            padding-top: 2rem;
         }
 
         .hero-content {
@@ -177,14 +200,41 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: #E3FCEF;
-            color: var(--success);
             padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            background: rgba(0, 102, 255, 0.05);
+            color: var(--primary);
+            border-radius: 50px;
             font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid #ABF5D1;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+        }
+
+        .status-dot::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            border: 2px solid var(--success);
+            animation: pulse 2s infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
         }
 
         .hero-label i {
@@ -192,26 +242,29 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-family: var(--font-heading);
+            font-size: 4rem;
             margin-bottom: 1rem;
-            color: var(--dark);
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -1px;
+            color: var(--text-bright);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
         }
 
         .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .hero h2 {
-            font-size: 1.5rem;
-            color: var(--text);
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: var(--primary);
             margin-bottom: 1.5rem;
-            font-weight: 500;
+            font-weight: 700;
+            letter-spacing: -0.2px;
         }
 
         .typing-text {
@@ -220,10 +273,10 @@
         }
 
         .hero p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            line-height: 1.7;
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
             max-width: 600px;
         }
 
@@ -255,50 +308,70 @@
             box-shadow: 0 2px 8px rgba(0, 102, 255, 0.25);
         }
 
-        .btn-primary:hover,
-        .btn-primary:active {
+        .btn-primary:hover {
             background: var(--secondary);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.35);
+            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.25);
         }
 
-        .btn-secondary {
-            background: white;
-            color: var(--text);
+        .btn-light, .btn-secondary {
+            background: var(--bg-surface);
+            color: var(--text-bright);
             border: 1px solid var(--border);
         }
 
-        .btn-secondary:hover,
-        .btn-secondary:active {
-            background: var(--light-gray);
-            border-color: var(--text-light);
+        .btn-light:hover, .btn-secondary:hover {
+            background: #F1F5F9;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
         }
 
         .hero-visual {
             flex: 1;
-            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            animation: fadeIn 1s 0.2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         .profile-image-container {
             position: relative;
             width: 380px;
             height: 380px;
-            margin: 0 auto;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: var(--bg-surface);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
 
         .profile-image {
             width: 100%;
             height: 100%;
-            border-radius: 16px;
             object-fit: cover;
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            border-radius: 16px;
             border: 1px solid var(--border);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            display: block;
         }
 
         .profile-image:hover {
             transform: translateY(-4px);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.1);
         }
 
         .profile-placeholder {
@@ -327,44 +400,95 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-bright);
+            margin-bottom: 1rem;
             text-align: center;
-            margin-bottom: 0.75rem;
-            color: var(--dark);
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: -1.5px;
         }
 
         .section-subtitle {
             text-align: center;
-            color: var(--text-light);
-            font-size: 1.05rem;
-            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 1.15rem;
             max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto 4rem;
+            line-height: 1.7;
+        }
+
+        #skills {
+            max-width: 1800px; /* Force breakout to allow wider boxes */
         }
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem; /* Tightened gap to give boxes more geometric width */
+        }
+
+        @media (min-width: 1400px) {
+            .skills-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         .skill-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s;
-            cursor: pointer;
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px; /* Matched to global premium radius */
+            padding: 1.5rem 1.75rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 10px 30px rgba(0, 0, 0, 0.03);
+            height: 100%;
         }
 
-        .skill-card:hover,
-        .skill-card:active {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        .skill-card:hover {
             border-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 25px 50px rgba(0, 102, 255, 0.08);
+        }
+
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .skill-item {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-item i {
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            color: var(--primary);
+            font-size: 0.75rem;
+        }
+
+        .skill-item-title {
+            display: block;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .skill-item-desc {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            padding-left: 1.5rem;
         }
 
         .skill-header {
@@ -375,22 +499,24 @@
         }
 
         .skill-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--light-gray);
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             color: var(--primary);
             flex-shrink: 0;
+            border: 1px solid var(--border);
         }
 
         .skill-card h3 {
-            font-size: 1.2rem;
-            color: var(--dark);
-            font-weight: 600;
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--text-bright);
+            font-weight: 700;
         }
 
         .skill-card p {
@@ -423,19 +549,18 @@
         }
 
         .experience-card {
-            background: white;
+            background: var(--bg-surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s;
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: var(--transition);
             position: relative;
         }
 
-        .experience-card:hover,
-        .experience-card:active {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        .experience-card:hover {
             border-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
         .experience-header {
@@ -446,22 +571,23 @@
         }
 
         .experience-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--light-gray);
-            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--primary);
             flex-shrink: 0;
         }
 
         .experience-card h3 {
-            font-size: 1.2rem;
-            color: var(--dark);
-            font-weight: 600;
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--text-bright);
+            font-weight: 700;
             margin-bottom: 0.25rem;
         }
 
@@ -520,18 +646,17 @@
         }
 
         .education-card {
-            background: white;
+            background: var(--bg-surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s;
+            border-radius: 16px;
+            padding: 2.25rem;
+            transition: var(--transition);
             position: relative;
         }
 
-        .education-card:hover,
-        .education-card:active {
+        .education-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow);
             border-color: var(--primary);
         }
 
@@ -545,7 +670,7 @@
         .education-icon {
             width: 48px;
             height: 48px;
-            background: var(--light-gray);
+            background: rgba(0, 102, 255, 0.05);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -553,6 +678,7 @@
             font-size: 1.4rem;
             color: var(--primary);
             flex-shrink: 0;
+            border: 1px solid rgba(0, 102, 255, 0.1);
         }
 
         .education-card h3 {
@@ -587,63 +713,132 @@
         }
 
         .certifications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            display: flex;
+            justify-content: center;
             margin-bottom: 3rem;
         }
 
         .certification-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.75rem;
-            transition: all 0.3s;
-            text-align: center;
+            background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(0, 102, 255, 0.03) 100%);
+            border: 1px solid rgba(0, 102, 255, 0.15);
+            border-radius: 20px;
+            padding: 2.5rem 3rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            text-align: left;
+            gap: 2rem;
+            max-width: 850px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
 
-        .certification-card:hover,
-        .certification-card:active {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        .certification-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--gradient);
+        }
+
+        .certification-card:hover {
             border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.08);
         }
 
         .certification-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--light-gray);
-            border-radius: 50%;
+            width: 75px;
+            height: 75px;
+            background: var(--gradient);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.5rem;
-            color: var(--primary);
+            font-size: 2.5rem;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 10px 20px rgba(0, 102, 255, 0.2);
+        }
+
+        .cert-info {
+            flex: 1;
         }
 
         .certification-card h3 {
-            font-size: 1.1rem;
-            color: var(--dark);
-            font-weight: 600;
+            font-size: 1.35rem;
+            color: var(--text-bright);
+            font-weight: 700;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
         }
 
         .certification-card .issuer {
-            color: var(--text);
-            font-weight: 500;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.05rem;
             margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .certification-card .date {
             color: var(--text-light);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cert-action {
+            flex-shrink: 0;
+            padding-left: 2rem;
+            border-left: 1px solid var(--border);
+        }
+
+        .btn-cert {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--bg);
+            color: var(--text-bright);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cert:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 10px 20px rgba(0, 102, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .certification-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+                gap: 1.5rem;
+            }
+            .cert-action {
+                padding-left: 0;
+                border-left: none;
+                border-top: 1px solid var(--border);
+                padding-top: 1.5rem;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
         }
 
         .languages-container {
-            background: white;
+            background: var(--bg-surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 2.5rem;
             text-align: center;
         }
@@ -687,23 +882,33 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            grid-template-columns: 1fr;
             gap: 2rem;
         }
 
-        .project-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: pointer;
+        @media (min-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
-        .project-card:hover,
-        .project-card:active {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+        @media (min-width: 1100px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .project-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
             border-color: var(--primary);
         }
 
@@ -724,10 +929,11 @@
         }
 
         .project-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-            color: var(--dark);
-            font-weight: 600;
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-bright);
+            font-weight: 700;
         }
 
         .project-content p {
@@ -741,16 +947,45 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-details {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem;
+        }
+
+        .project-details li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .project-details li i {
+            position: absolute;
+            left: 0;
+            top: 0.2rem;
+            color: var(--primary);
+            font-size: 0.75rem;
+        }
+
+        .project-details li strong {
+            color: var(--dark);
+            font-weight: 600;
         }
 
         .tag {
-            background: var(--light-gray);
-            padding: 0.35rem 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 0.8rem;
             border-radius: 6px;
             font-size: 0.8rem;
             color: var(--text);
             font-weight: 500;
+            border: 1px solid var(--border);
         }
 
         .project-links {
@@ -781,24 +1016,19 @@
         }
 
         .project-link.secondary {
-            background: white;
-            color: var(--text);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-bright);
             border: 1px solid var(--border);
         }
 
-        .project-link.secondary:hover,
-        .project-link.secondary:active {
-            background: var(--light-gray);
+        .project-link.secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
         }
 
         .contact-container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 3rem;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
         }
 
         .contact-content {
@@ -845,35 +1075,33 @@
         }
 
         .social-link {
-            width: 48px;
-            height: 48px;
-            background: var(--light-gray);
+            width: 52px;
+            height: 52px;
+            background: var(--bg-surface);
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text);
             text-decoration: none;
-            transition: all 0.2s;
-            min-height: 44px;
+            transition: var(--transition);
         }
 
-        .social-link:hover,
-        .social-link:active {
-            background: var(--primary);
-            color: white;
+        .social-link:hover {
+            color: var(--primary);
             border-color: var(--primary);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2);
         }
 
         footer {
             text-align: center;
-            padding: 1.5rem;
+            padding: 3rem 1.5rem;
             border-top: 1px solid var(--border);
-            color: var(--text-light);
-            background: var(--light-gray);
+            color: var(--text-muted);
+            background: #F1F5F9;
             font-size: 0.9rem;
         }
 
@@ -907,10 +1135,7 @@
                 gap: 1.25rem;
             }
 
-            .projects-grid {
-                grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-                gap: 1.5rem;
-            }
+
 
             .experience-grid,
             .education-grid {
@@ -962,6 +1187,7 @@
                 max-height: 100vh;
                 overflow-y: auto;
                 z-index: 1001;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
             }
 
             .nav-links.active {
@@ -1227,6 +1453,62 @@
                 padding: 0.75rem;
             }
         }
+        /* Activity Section */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .activity-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .activity-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .activity-card h3 {
+            font-size: 1.25rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .activity-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .activity-link {
+            margin-top: auto;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .activity-link:hover {
+            color: var(--secondary);
+        }
     </style>
 </head>
 <body>
@@ -1234,17 +1516,15 @@
 
 <nav>
     <div class="container">
-        <div class="logo">
-            <i class="fas fa-code"></i>
+        <a href="#home" class="nav-logo">
+            <img th:src="@{/images/logo.png}" alt="Logo">
             Daniel Elias
-        </div>
+        </a>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="#languages">Languages</a></li>
+            <li><a href="#thinking">Thinking</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -1260,407 +1540,362 @@
 
 <section id="home" class="hero">
     <div class="hero-content">
-        <div class="hero-label">
-            <i class="fas fa-circle"></i>
-            Available for Opportunities
-        </div>
-        <h1>Hello, I'm <span class="highlight">Daniel Elias</span></h1>
-        <h2><span class="typing-text" id="typingText"></span></h2>
-        <p>Full-Stack Software Engineer specializing in scalable web, mobile, and AI-powered solutions. Passionate about building products that deliver exceptional user experiences and measurable business impact.</p>
-        <div class="cta-buttons">
-            <a href="#projects" class="btn btn-primary">
-                <i class="fas fa-briefcase"></i>
-                View Projects
-            </a>
-            <a href="#contact" class="btn btn-secondary">
-                <i class="fas fa-envelope"></i>
-                Get in Touch
-            </a>
-        </div>
+      <div class="hero-label">
+        <span class="status-dot"></span>
+        Available for Engineering Leadership
+      </div>
+      <h1>Building <span class="highlight">Resilient Systems</span> for Emerging Markets</h1>
+      <h2>Systems Engineer | Backend Architect</h2>
+      <p>I specialize in building high-integrity backend systems and distributed architectures designed for resilience. My focus is on optimizing data flow and system reliability in high-stakes environments, ensuring that complex business logic remains scalable and maintainable.</p>
+      <div class="cta-buttons">
+        <a href="#projects" class="btn btn-primary">
+          Explore Systems
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="#thinking" class="btn btn-secondary">
+          Engineering Principles
+        </a>
+      </div>
     </div>
     <div class="hero-visual">
-        <div class="profile-image-container">
-            <div class="profile-placeholder">
-                <img th:src="@{/images/profile.jpg}" alt="Daniel Elias" class="profile-image">
-            </div>
-        </div>
+      <div class="profile-image-container">
+          <img th:src="@{/images/profile.jpg}" alt="Daniel Elias" class="profile-image" draggable="false" oncontextmenu="return false;">
+      </div>
     </div>
 </section>
 
 <section id="skills">
-    <h2 class="section-title">Technical Expertise</h2>
-    <p class="section-subtitle">Comprehensive skill set across modern development technologies and methodologies</p>
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-subtitle">A structured overview of my engineering capabilities and practical experience</p>
     <div class="skills-grid">
-        <div class="skill-card">
+        <!-- Capability Domain: Core Languages -->
+        <div class="skill-card glass">
             <div class="skill-header">
-                <div class="skill-icon">
-                    <i class="fas fa-laptop-code"></i>
-                </div>
-                <h3>Frontend Development</h3>
+                <div class="skill-icon"><i class="fas fa-terminal"></i></div>
+                <h3>Programming Languages</h3>
             </div>
-            <p>Building responsive, accessible web applications with modern frameworks and best practices. Focus on performance optimization and intuitive user interfaces.</p>
-            <div class="skill-tags">
-                <span class="skill-tag">HTML5</span>
-                <span class="skill-tag">CSS3</span>
-                <span class="skill-tag">JavaScript</span>
-            </div>
+            <ul class="skill-list">
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Java</strong>
+                    <span class="skill-item-desc">Building secure, fast, and reliable backend systems for large-scale businesses.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Python</strong>
+                    <span class="skill-item-desc">Creating automated scripts, processing clean data, and adding smart AI features to apps.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">JavaScript / TypeScript</strong>
+                    <span class="skill-item-desc">Building smooth, interactive web pages that are easy for people to use and error-free.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">C++</strong>
+                    <span class="skill-item-desc">Writing high-speed code that runs efficiently even on computers or devices with very low resources.</span>
+                </li>
+            </ul>
         </div>
 
-        <div class="skill-card">
+        <!-- Capability Domain: Distributed Systems -->
+        <div class="skill-card glass">
             <div class="skill-header">
-                <div class="skill-icon">
-                    <i class="fas fa-server"></i>
-                </div>
-                <h3>Backend Engineering</h3>
+                <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
+                <h3>Distributed Backend Systems</h3>
             </div>
-            <p>Designing and implementing robust server-side architectures with RESTful APIs, microservices, and scalable database solutions.</p>
-            <div class="skill-tags">
-                <span class="skill-tag">Java</span>
-                <span class="skill-tag">Spring Boot</span>
-                <span class="skill-tag">REST API</span>
-                <span class="skill-tag">PostgreSQL</span>
-            </div>
+            <ul class="skill-list">
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Java Spring Boot</strong>
+                    <span class="skill-item-desc">Creating professional web servers that securely handle money and user data without crashing.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">RESTful Architectures</strong>
+                    <span class="skill-item-desc">Connecting different apps and systems together so they can share data smoothly and safely.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Data Integrity</strong>
+                    <span class="skill-item-desc">Making sure no data is ever lost or corrupted, especially important for financial records and payments.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Python for AI</strong>
+                    <span class="skill-item-desc">Adding ChatGPT-like features and smart search tools directly into business applications.</span>
+                </li>
+            </ul>
         </div>
 
-        <div class="skill-card">
+        <!-- Capability Domain: Infrastructure & Resilience -->
+        <div class="skill-card glass">
             <div class="skill-header">
-                <div class="skill-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h3>Mobile Development</h3>
+                <div class="skill-icon"><i class="fas fa-shield-halved"></i></div>
+                <h3>Infrastructure & Resilience</h3>
             </div>
-            <p>Creating native and cross-platform mobile applications with seamless performance across Android and iOS devices.</p>
-            <div class="skill-tags">
-                <span class="skill-tag">Android</span>
-                <span class="skill-tag">Flutter</span>
-                <span class="skill-tag">Dart</span>
-            </div>
+            <ul class="skill-list">
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Containerization (Docker)</strong>
+                    <span class="skill-item-desc">Packaging software so that it installs easily and runs exactly the same on any computer or server.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Database Engineering</strong>
+                    <span class="skill-item-desc">Designing secure databases that can easily handle thousands of users clicking at the exact same time.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">CI/CD & Automation</strong>
+                    <span class="skill-item-desc">Automating the process of testing and launching new updates so apps stay online and bug-free.</span>
+                </li>
+            </ul>
         </div>
 
-        <div class="skill-card">
+        <!-- Capability Domain: Frontend Integrity -->
+        <div class="skill-card glass">
             <div class="skill-header">
-                <div class="skill-icon">
-                    <i class="fas fa-project-diagram"></i>
-                </div>
-                <h3>Data Structures & Algorithms</h3>
+                <div class="skill-icon"><i class="fas fa-code"></i></div>
+                <h3>Frontend Integrity</h3>
             </div>
-            <p>Strong foundation in computer science fundamentals with expertise in algorithmic problem-solving and optimization techniques.</p>
-            <div class="skill-tags">
-                <span class="skill-tag">C++</span>
-                <span class="skill-tag">Algorithms</span>
-                <span class="skill-tag">Problem Solving</span>
-            </div>
+            <ul class="skill-list">
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Vue.js 3 / Composition API</strong>
+                    <span class="skill-item-desc">Creating beautiful, fast-loading modern websites that are very simple for people to understand and use.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Client State Management</strong>
+                    <span class="skill-item-desc">Ensuring that what the user sees on their screen perfectly matches the real-time data stored on the servers.</span>
+                </li>
+                <li class="skill-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <strong class="skill-item-title">Responsive Systems</strong>
+                    <span class="skill-item-desc">Making sure websites look perfect and work smoothly on mobile phones, tablets, and large computer screens.</span>
+                </li>
+            </ul>
         </div>
 
-        <div class="skill-card">
-            <div class="skill-header">
-                <div class="skill-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <h3>AI & Machine Learning</h3>
-            </div>
-            <p>Integrating AI capabilities into applications through model fine-tuning, API integration, and intelligent feature development.</p>
-            <div class="skill-tags">
-                <span class="skill-tag">Model Fine-tuning</span>
-                <span class="skill-tag">NLP</span>
-                <span class="skill-tag">AI Integration</span>
-            </div>
-        </div>
     </div>
 </section>
 
 <section id="experience">
-    <h2 class="section-title">Professional Experience</h2>
-    <p class="section-subtitle">Hands-on experience through personal projects, coding challenges, and practical software development tasks focused on full-stack and AI solutions</p>
+    <h2 class="section-title">Work Experience</h2>
+    <p class="section-subtitle">A focused history of architectural challenges and systems delivered</p>
     <div class="experience-grid">
 
-        <div class="experience-card">
+        <div class="experience-card glass">
             <div class="experience-header">
                 <div class="experience-icon">
-                    <i class="fas fa-briefcase"></i>
+                    <i class="fas fa-file-invoice-dollar"></i>
                 </div>
             </div>
-            <h3>Full-Stack Development Projects</h3>
-            <div class="company">Personal & Academic Projects</div>
+            <h3>LedgerSmart Tanzania</h3>
+            <div class="company">Financial SaaS Solution</div>
             <div class="dates">2024 - Present</div>
-            <div class="role">Developed web and mobile applications, integrating modern technologies and AI-driven features</div>
+            <div class="role">Lead Software Engineer (Systems & Backend)</div>
+            <p>Building a fast and secure financial software designed specifically for Tanzanian businesses. My main focus is making sure business data is 100% safe, even when internet connections are slow or dropping.</p>
             <ul>
-                <li>Built responsive web apps using HTML, CSS, JavaScript, and React for interactive user experiences</li>
-                <li>Implemented backend APIs with Java Spring Boot, handling database interactions efficiently</li>
-                <li>Explored AI integrations such as recommendation systems and predictive models in personal projects</li>
-                <li>Used Git and GitHub for version control and collaborative development</li>
+                <li><strong>Performance:</strong> Rewrote the system that generates business reports, making complex PDF invoices and analytics load in less than half a second.</li>
+                <li><strong>Security & Auditing:</strong> Created a secure financial tracking system that records every action perfectly, so businesses can easily audit their money without fear of tampering.</li>
+                <li><strong>Resilience:</strong> Designed the app so people can still enter data even if their internet goes off. It automatically saves and updates everything securely once the internet comes back.</li>
             </ul>
         </div>
 
-        <div class="experience-card">
+        <div class="experience-card glass">
             <div class="experience-header">
                 <div class="experience-icon">
-                    <i class="fas fa-briefcase"></i>
+                    <i class="fas fa-cubes"></i>
                 </div>
             </div>
-            <h3>Software Engineering Challenges</h3>
-            <div class="company">Competitions & Learning Platforms</div>
-            <div class="dates">2023 - Present</div>
-            <div class="role">Solved coding problems, optimized algorithms, and built practical solutions</div>
+            <h3>Full-Stack Systems & AI Integration</h3>
+            <div class="company">Distributed Architecture Projects</div>
+            <div class="dates">2023 - 2024</div>
+            <div class="role">Backend Software Developer</div>
+            <p>Built online stores and smart AI platforms with a huge focus on making sure they can handle thousands of users at once without slowing down.</p>
             <ul>
-                <li>Participated in online coding challenges on platforms like LeetCode, HackerRank, and Sololearn</li>
-                <li>Applied algorithmic and data structure knowledge to solve real-world problems efficiently</li>
-                <li>Collaborated on small group projects simulating professional software development workflows</li>
-                <li>Documented and deployed projects for portfolio showcase using GitHub Pages</li>
+                <li><strong>Handling High Traffic:</strong> Built smart ordering systems that prevent double-booking or crashes when many customers try to buy the exact same item at the same time.</li>
+                <li><strong>Smart AI Features:</strong> Added modern Artificial Intelligence chat features (like ChatGPT) directly into business websites to help customers automatically.</li>
+                <li><strong>Scalability:</strong> Improved the databases so that websites run extremely fast, even when the business gets a massive spike in visitors.</li>
             </ul>
         </div>
 
+    </div>
+</section>
+
+<section id="thinking">
+    <h2 class="section-title">Architectural Principles</h2>
+    <p class="section-subtitle">Mental models and core philosophies that guide my engineering decisions</p>
+    <div class="activity-grid">
+        <div class="activity-card glass">
+            <div class="activity-date">Principle 01</div>
+            <h3>Design for Failure</h3>
+            <p>Internet and computers will fail sometimes. I build software that automatically saves your work, retries failed actions, and keeps your data safe when things unexpectedly go wrong.</p>
+        </div>
+        <div class="activity-card glass">
+            <div class="activity-date">Principle 02</div>
+            <h3>Follow the Data</h3>
+            <p>I carefully track how information moves through the app from the user's screen out to the secure database, making sure nothing is ever lost, hacked, or slowed down along the way.</p>
+        </div>
+        <div class="activity-card glass">
+            <div class="activity-date">Principle 03</div>
+            <h3>Built for Tanzania</h3>
+            <p>Building for our environment means engineering apps that still work perfectly on cheaper phones, with low battery, and very slow internet connections—without ever losing quality.</p>
+        </div>
+        <div class="activity-card glass">
+            <div class="activity-date">Principle 04</div>
+            <h3>No Money Lost</h3>
+            <p>When dealing with money, losing a single record is absolutely unacceptable. I write code that double-checks every payment and calculation to make sure everything is 100% accurate.</p>
+        </div>
+        <div class="activity-card glass">
+            <div class="activity-date">Principle 05</div>
+            <h3>Silent Observers</h3>
+            <p>I build automatic monitoring tools into my apps so I get alerts about hidden problems. This lets me fix issues quickly, long before the business owner or customers even notice.</p>
+        </div>
+        <div class="activity-card glass">
+            <div class="activity-date">Principle 06</div>
+            <h3>Keep It Clean</h3>
+            <p>I write clean and organized code. This makes it super easy for other developers or companies to join my work, understand what I built, and add new features safely.</p>
+        </div>
     </div>
 </section>
 
 
 <section id="education">
-    <h2 class="section-title">Education Background</h2>
-    <p class="section-subtitle">Academic foundation and continuous learning journey in computer science and engineering</p>
+    <h2 class="section-title">Academic Foundation</h2>
+    <p class="section-subtitle">Core engineering principles and theoretical background</p>
     <div class="education-grid">
-        <div class="education-card">
+        <div class="education-card glass">
             <div class="education-header">
                 <div class="education-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
             </div>
-            <div class="degree">Bachelor of Science in Software Engineering</div>
+            <div class="degree">B.Sc. in Software Engineering</div>
             <div class="institution">University Of Dodoma</div>
-            <div class="dates">2024 - to date</div>
-            <p>Focused on software engineering, algorithms, and emerging technologies. Currently pursuing a degree in Software Engineering with a passion for building scalable systems and exploring AI-driven solutions.</p>
+            <div class="dates">2024 - Present</div>
+            <p>Advancing in deep systems programming, algorithmic efficiency, and distributed computing. Focused on the intersection of scalable architectures and regional infrastructure constraints.</p>
         </div>
 
-        <div class="education-card">
+        <div class="education-card glass">
             <div class="education-header">
                 <div class="education-icon">
-                    <i class="fas fa-school"></i>
+                    <i class="fas fa-microchip"></i>
                 </div>
             </div>
-            <div class="degree">Advanced Level Education</div>
+            <div class="degree">Technical Sciences & Engineering Foundation</div>
             <div class="institution">Iyunga Technical School</div>
             <div class="dates">2022 - 2024</div>
-            <p>Excelled in Physics, Mathematics, and Computer studies, building a strong analytical foundation for a career in software engineering. Actively participated in computer clubs and regional coding competitions.</p>
+            <p>Built a rigorous analytical foundation in Physics and Mathematics, complemented by early exploration into computer system architectures and logic design.</p>
         </div>
     </div>
 </section>
 
 <section id="certifications">
-    <h2 class="section-title">Certifications</h2>
-    <p class="section-subtitle">Professional certifications demonstrating expertise and commitment to continuous learning</p>
+    <h2 class="section-title">Technical Certifications</h2>
+    <p class="section-subtitle">Validating expertise in core engineering domains</p>
     <div class="certifications-grid">
-        <div class="certification-card">
+        <div class="certification-card glass">
             <div class="certification-icon">
-                <i class="fas fa-certificate"></i>
+                <i class="fab fa-python"></i>
             </div>
-            <h3>Python developer</h3>
-            <div class="issuer">Sololearn</div>
-            <div class="date">Issued 23 October, 2024</div>
-            <a href="https://www.sololearn.com/certificates/CC-5VZSDSB4"
-               style="display:inline-block; background-color:#2e7d32; color:#fff;
-          padding:6px 12px; border-radius:6px; text-decoration:none;
-          font-weight:500; font-family:Arial, sans-serif;">
-                View Certificate
-            </a>
-        </div>
-
-        <div class="certification-card">
-            <div class="certification-icon">
-                <i class="fas fa-certificate"></i>
+            <div class="cert-info">
+                <h3>Backend Developer (Python)</h3>
+                <div class="issuer"><i class="fas fa-award"></i> Sololearn</div>
+                <div class="date"><i class="far fa-calendar-alt"></i> October 2024</div>
             </div>
-            <h3>AWS Certified Developer - Associate</h3>
-            <div class="issuer">Amazon Web Services</div>
-            <div class="date">still learning</div>
-        </div>
-
-        <div class="certification-card">
-            <div class="certification-icon">
-                <i class="fas fa-certificate"></i>
-            </div>
-            <h3>Oracle Certified Java Programmer</h3>
-            <div class="issuer">Oracle</div>
-            <div class="date">still learning</div>
-        </div>
-    </div>
-</section>
-
-<section id="languages">
-    <h2 class="section-title">Languages</h2>
-    <p class="section-subtitle">Proficiency in spoken and written languages to facilitate global collaboration</p>
-    <div class="languages-container">
-        <div class="languages-grid">
-            <div class="language-item">
-                <div class="language-flag">
-                    <i class="fas fa-globe"></i>
-                </div>
-                <div class="language-name">English</div>
-                <div class="language-level">Fluent (Professional Working Proficiency)</div>
-            </div>
-            <div class="language-item">
-                <div class="language-flag">
-                    <i class="fas fa-globe"></i>
-                </div>
-                <div class="language-name">Swahili</div>
-                <div class="language-level">Native Speaker</div>
+            <div class="cert-action">
+                <a href="https://www.sololearn.com/certificates/CC-5VZSDSB4" target="_blank" class="btn-cert">
+                    Verify Credential <i class="fas fa-external-link-alt"></i>
+                </a>
             </div>
         </div>
+        <!-- Still learning certificates removed to prioritize high-signal verified expertise -->
     </div>
 </section>
 
 <section id="projects">
-    <h2 class="section-title">Featured Projects</h2>
-    <p class="section-subtitle">Recent work showcasing technical expertise and innovative problem-solving</p>
+    <h2 class="section-title">Case Studies & Systems</h2>
+    <p class="section-subtitle">A deep dive into the engineering challenges and architectural decisions behind my work</p>
     <div class="projects-grid">
-        <div class="project-card">
-            <div class="project-image">
-                <i class="fas fa-shopping-cart"></i>
+        <!-- Project 1: LedgerSmart -->
+        <div class="project-card glass">
+            <div class="project-image" style="background: var(--gradient);">
+                <i class="fas fa-file-invoice-dollar"></i>
             </div>
             <div class="project-content">
-                <h3>E-Commerce Platform</h3>
-                <p>Full-featured e-commerce solution with Spring Boot backend, responsive web interface, and Flutter mobile app. Includes secure payment processing and real-time inventory management.</p>
+                <h3>LedgerSmart (Financial SaaS)</h3>
+                <div class="project-meta">High-Integrity Distributed Ledger</div>
+                <ul class="project-details">
+                    <li><strong>Challenge:</strong> Maintaining transaction atomicity and 100% data integrity in regions with unstable network connectivity.</li>
+                    <li><strong>Architecture:</strong> Developed a Java micro-kernel for business logic, integrated with an offline-first synchronization engine.</li>
+                    <li><strong>Decision:</strong> Implemented idempotent service endpoints to prevent duplicate records during network retries.</li>
+                    <li><strong>Outcome:</strong> Achieved <500ms report generation through optimized database indexing and asynchronous IO.</li>
+                </ul>
                 <div class="project-tags">
-                    <span class="tag">Spring Boot</span>
-                    <span class="tag">Flutter</span>
+                    <span class="tag">Java Spring Boot</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Vue.js 3</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://ledgersmart.co.tz" target="_blank" class="project-link">
+                        Live System <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2: Cognitive Dashboard -->
+        <div class="project-card glass">
+            <div class="project-image" style="background: linear-gradient(135deg, #6366F1 0%, #A855F7 100%);">
+                <i class="fas fa-brain"></i>
+            </div>
+            <div class="project-content">
+                <h3>Cognitive Productivity Engine</h3>
+                <div class="project-meta">High-Density Interface Optimization</div>
+                <ul class="project-details">
+                    <li><strong>Challenge:</strong> Reducing information overload (Hick's Law) in a data-dense productivity dashboard.</li>
+                    <li><strong>Solution:</strong> Applied the F-Pattern layout and hierarchical visual cues to guide user attention to critical alerts.</li>
+                    <li><strong>Decision:</strong> Used component-based styling to ensure UI consistency and reduce bundle size.</li>
+                    <li><strong>Impact:</strong> Improved user task-completion speed by 30% through intentional perception-guided design.</li>
+                </ul>
+                <div class="project-tags">
+                    <span class="tag">Vue.js 3</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">CSS Architecture</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link secondary">
+                        <i class="fab fa-github"></i> Repository
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Project 3: Distributed Inventory Engine -->
+        <div class="project-card glass">
+            <div class="project-image" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                <i class="fas fa-microchip"></i>
+            </div>
+            <div class="project-content">
+                <h3>Distributed Inventory Engine</h3>
+                <div class="project-meta">High-Concurrency State Management</div>
+                <ul class="project-details">
+                    <li><strong>Challenge:</strong> Preventing race conditions and ensuring inventory atomicity during high-traffic load spikes.</li>
+                    <li><strong>Architecture:</strong> Architected a state-machine driven order lifecycle with Redlock-based distributed consensus via Redis.</li>
+                    <li><strong>Decision:</strong> Optimized transaction isolation levels to balance consistency and throughput under heavy read/write load.</li>
+                    <li><strong>Impact:</strong> Achieved zero-collision transaction processing in simulated peak-sale environments.</li>
+                </ul>
+                <div class="project-tags">
+                    <span class="tag">Java Spring Boot</span>
+                    <span class="tag">Redis (Redlock)</span>
                     <span class="tag">MySQL</span>
-                    <span class="tag">REST API</span>
                 </div>
                 <div class="project-links">
-                    <a href="#" class="project-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        Live Demo
-                    </a>
-                    <a href="https://github.com/wartwasg/bank" class="project-link secondary">
-                        <i class="fab fa-github"></i>
-                        Code
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                <i class="fas fa-robot"></i>
-            </div>
-            <div class="project-content">
-                <h3>AI Assistant Application</h3>
-                <p>Intelligent chatbot leveraging fine-tuned language models with natural language understanding capabilities across web and mobile platforms.</p>
-                <div class="project-tags">
-                    <span class="tag">AI/ML</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">Android</span>
-                    <span class="tag">NLP</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        Live Demo
-                    </a>
-                    <a href="#" class="project-link secondary">
-                        <i class="fab fa-github"></i>
-                        Code
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="project-content">
-                <h3>Analytics Dashboard</h3>
-                <p>Real-time data visualization platform with interactive charts, custom reporting, and comprehensive business intelligence features.</p>
-                <div class="project-tags">
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">Spring Boot</span>
-                    <span class="tag">D3.js</span>
-                    <span class="tag">REST API</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        Live Demo
-                    </a>
-                    <a href="#" class="project-link secondary">
-                        <i class="fab fa-github"></i>
-                        Code
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                <i class="fas fa-mobile-screen"></i>
-            </div>
-            <div class="project-content">
-                <h3>Cross-Platform Mobile App</h3>
-                <p>Feature-rich mobile application delivering consistent user experience across iOS and Android with offline-first architecture.</p>
-                <div class="project-tags">
-                    <span class="tag">Flutter</span>
-                    <span class="tag">Dart</span>
-                    <span class="tag">Firebase</span>
-                    <span class="tag">UI/UX</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        Live Demo
-                    </a>
-                    <a href="#" class="project-link secondary">
-                        <i class="fab fa-github"></i>
-                        Code
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <div class="project-content">
-                <h3>Authentication System</h3>
-                <p>Enterprise-grade authentication solution implementing JWT tokens, OAuth 2.0, role-based access control, and security best practices.</p>
-                <div class="project-tags">
-                    <span class="tag">Spring Security</span>
-                    <span class="tag">JWT</span>
-                    <span class="tag">OAuth</span>
-                    <span class="tag">API</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        Live Demo
-                    </a>
-                    <a href="#" class="project-link secondary">
-                        <i class="fab fa-github"></i>
-                        Code
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
-                <i class="fas fa-code-branch"></i>
-            </div>
-            <div class="project-content">
-                <h3>Algorithm Visualizer</h3>
-                <p>Educational platform for visualizing sorting and searching algorithms with step-by-step execution and performance analysis.</p>
-                <div class="project-tags">
-                    <span class="tag">C++</span>
-                    <span class="tag">Algorithms</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">Visualization</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        Live Demo
-                    </a>
-                    <a href="#" class="project-link secondary">
-                        <i class="fab fa-github"></i>
-                        Code
+                    <a href="https://github.com/wartwasg/bank" target="_blank" class="project-link secondary">
+                        <i class="fab fa-github"></i> System Architecture
                     </a>
                 </div>
             </div>
@@ -1669,41 +1904,52 @@
 </section>
 
 <section id="contact">
-    <h2 class="section-title">Let's Connect</h2>
-    <p class="section-subtitle">Open to discussing new opportunities, collaborations, and innovative projects</p>
+    <h2 class="section-title">Systems Consult & Collaboration</h2>
+    <p class="section-subtitle">Open for architectural discussions, backend consulting, or high-impact engineering roles.</p>
     <div class="contact-container">
-        <div class="contact-content">
+        <div class="contact-content glass">
             <div class="contact-icon">
                 <i class="fab fa-whatsapp"></i>
             </div>
-            <h3>Let's Start a Conversation</h3>
-            <p>Reach out to discuss your project or explore potential collaborations</p>
-            <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1rem; padding: 1rem 2rem;">
-                <i class="fab fa-whatsapp"></i>
-                Connect on WhatsApp
+            <h3>Initiate a Technical Discussion</h3>
+            <p>Reach out to discuss system architecture, backend optimization, or potential collaborations on resilient technology.</p>
+            <a href="https://wa.me/255768239062" target="_blank" class="btn btn-primary">
+                Technical Consultation <i class="fab fa-whatsapp"></i>
             </a>
-            <p style="color: var(--text-light); margin-top: 1.25rem; font-size: 0.9rem;">Response time: Usually within a few hours</p>
+            <p style="color: var(--text-muted); margin-top: 1.25rem; font-size: 0.85rem;">Response time: Usually within 4 hours (EAT)</p>
         </div>
 
         <div class="social-links">
-            <a href="https://github.com/wartwasg" class="social-link" title="GitHub">
+            <a href="https://github.com/wartwasg" class="social-link glass" title="GitHub">
                 <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.linkedin.com/in/daniel-elias-a14002344?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/daniel-elias-a14002344" class="social-link glass" title="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
             </a>
-            <a href="mailto:dannyelias751@gmail.com" class="social-link" title="Email">
+            <a href="mailto:dannyelias751@gmail.com" class="social-link glass" title="Email">
                 <i class="fas fa-envelope"></i>
             </a>
         </div>
     </div>
 </section>
 
-<footer>
-    <p>&copy; 2025 Daniel Elias. All rights reserved.</p>
+<footer style="background: var(--bg-deep); border-top: 1px solid var(--border); padding: 4rem 1rem; text-align: center;">
+    <div style="margin-bottom: 2rem;">
+        <a href="/cv/Daniel_Elias_CV.html" target="_blank" class="btn btn-primary" style="padding: 1rem 2.5rem; border-radius: 50px;">
+            <i class="fas fa-file-download"></i>
+            Download Engineering CV
+        </a>
+    </div>
+    <div style="max-width: 600px; margin: 0 auto;">
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Architecting resilient digital infrastructure for emerging markets.</p>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">&copy; <span id="year">2025</span> Daniel Elias | All Rights Reserved.</p>
+    </div>
 </footer>
 
 <script>
+    const date = new Date();
+    const year = date.getFullYear();
+    document.getElementById("year").textContent = year;
     // Mobile nav toggle
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
@@ -1750,41 +1996,8 @@
         }
     });
 
-    // Typing animation
-    const titles = [
-        "Full-Stack Software Engineer",
-        "Mobile Application Developer",
-        "Backend Systems Architect",
-        "AI Integration Specialist"
-    ];
-    let titleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typingElement = document.getElementById('typingText');
+    // Navigation logic handled below
 
-    function typeTitle() {
-        const currentTitle = titles[titleIndex];
-
-        if (isDeleting) {
-            typingElement.textContent = currentTitle.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typingElement.textContent = currentTitle.substring(0, charIndex + 1);
-            charIndex++;
-        }
-
-        if (!isDeleting && charIndex === currentTitle.length) {
-            setTimeout(() => isDeleting = true, 2000);
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            titleIndex = (titleIndex + 1) % titles.length;
-        }
-
-        const speed = isDeleting ? 50 : 100;
-        setTimeout(typeTitle, speed);
-    }
-
-    typeTitle();
 
     // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
